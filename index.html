@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <script src="https://cdn.plot.ly/plotly-2.26.0.min.js" charset="utf-8"></script>
+        <style>
+            body { margin: 50px; }
+            .function { display: flex; margin: 90px 0; }
+            .function > figure { display: flex; flex-direction: column; align-items: center; }
+        </style>
+    </head>
+<body>
+    <h1> Laplace transforms</h1>
+    
+
+    <section id="1" class="function">
+        <h2>k</h2>
+        <figure>
+            <div id="1/Fun" style="width: 500px;height:400px;"></div>
+            <label id="1/Label"></label>
+            <input id="1/Range" type="range" min=0 max=90 value=0 >
+        </figure>
+        <figure>
+            <div id="1/Laplace" style="width: 500px;height:400px;"></div>
+        </figure>
+    </section>
+
+
+    <section id="t" class="function">
+        <h2>kt</h2>
+        <figure>
+            <div id="t/Fun" style="width: 500px;height:400px;"></div>
+            <label id="t/Label"></label>
+            <input id="t/Range" type="range" min=0 max=90 value=0 >
+        </figure>
+        <figure>
+            <div id="t/Laplace" style="width: 500px;height:400px;"></div>
+        </figure>
+    </section>
+
+    <section id="t^n" class="function">
+        <h2>tⁿ</h2>
+        <figure>
+            <div id="t^n/Fun" style="width: 500px;height:400px;"></div>
+            <label id="t^n/Label"></label>
+            <input id="t^n/Range" type="range" min=0 max=90 value=0 >
+        </figure>
+        <figure>
+            <div id="t^n/Laplace" style="width: 500px;height:400px;"></div>
+        </figure>
+    </section>
+
+    <section id="e^at" class="function">
+        <h2>e^(at)</h2>
+        <figure>
+            <div id="e^at/Fun" style="width: 500px;height:400px;"></div>
+            <label id="e^at/Label"></label>
+            <input id="e^at/Range" type="range" min=0 max=90 value=0 >
+        </figure>
+        <figure>
+            <div id="e^at/Laplace" style="width: 500px;height:400px;"></div>
+        </figure>
+    </section>
+
+    <section id="sint" class="function">
+        <h2>sin(bt)</h2>
+        <figure>
+            <div id="sint/Fun" style="width: 500px;height:400px;"></div>
+            <label id="sint/Label"></label>
+            <input id="sint/Range" type="range" min=0 max=90 value=0 >
+        </figure>
+        <figure>
+            <div id="sint/Laplace" style="width: 500px;height:400px;"></div>
+        </figure>
+    </section>
+
+    <section id="cost" class="function">
+        <h2>cos(bt)</h2>
+        <figure>
+            <div id="cost/Fun" style="width: 500px;height:400px;"></div>
+            <label id="cost/Label"></label>
+            <input id="cost/Range" type="range" min=0 max=90 value=0 >
+        </figure>
+        <figure>
+            <div id="cost/Laplace" style="width: 500px;height:400px;"></div>
+        </figure>
+    </section>
+
+    <section id="te^at" class="function">
+        <h2>te^(at)</h2>
+        <figure>
+            <div id="te^at/Fun" style="width: 500px;height:400px;"></div>
+            <label id="te^at/Label"></label>
+            <input id="te^at/Range" type="range" min=0 max=90 value=0 >
+        </figure>
+        <figure>
+            <div id="te^at/Laplace" style="width: 500px;height:400px;"></div>
+        </figure>
+    </section>
+</body>
+<script>
+    const figures = [{
+            id: "1",
+            constantName: "k",
+            FunTitle: (k) => `${k}`,
+            Fun: (t,k) => k,
+            LaplaceTitle: (k) => `${k} / s`,
+            Laplace: (s,k) => k / s,
+    },{
+            id: "t",
+            constantName: "k",
+            FunTitle: (k) => `${k}t`,
+            Fun: (t,k) => k*t,
+            LaplaceTitle: (k) => `${k} / s²`,
+            Laplace: (s,k) => k / s**s,
+    },{
+            id: "t^n",
+            constantName: "n",
+            multiplier: .3,
+            FunTitle: (n) => `t^${n}`,
+            Fun: (t,n) => Math.pow(t,n),
+            LaplaceTitle: (n) => `${n}! / s^(${n}+1)`,
+            Laplace: (s,n) => factorial(n) / Math.pow(s,n+1),
+    },{
+            id: "e^at",
+            constantName: "a",
+            FunTitle: (a) => `e^${a}t`,
+            Fun: (t,a) => Math.pow(Math.E,a*t),
+            LaplaceTitle: (a) => `1 / s - ${a}`,
+            Laplace: (s,a) => 1 / (s - a),
+    },{
+            id: "sint",
+            constantName: "b",
+            FunTitle: (b) => `sin(${b}t)`,
+            Fun: (t,b) => Math.sin(b*t),
+            LaplaceTitle: (b) => `${b} / (s² + ${b}²)`,
+            Laplace: (s,b) => b / (s*s + b*b),
+    },{
+            id: "cost",
+            constantName: "b",
+            FunTitle: (b) => `cos(${b}t)`,
+            Fun: (t,b) => Math.cos(b*t),
+            LaplaceTitle: (b) => `s / (s² + ${b}²)`,
+            Laplace: (s,b) => s / (s*s + b*b),
+    },{
+            id: "te^at",
+            constantName: "a",
+            FunTitle: (a) => `te^${a}t`,
+            Fun: (t,a) => t*Math.pow(Math.E, a*t),
+            LaplaceTitle: (a) => `1 / (s-${a})²`,
+            Laplace: (s,a) => 1 / Math.pow((s - a),2),
+    }]
+
+    function makeFigure({
+        id, FunTitle, Fun, LaplaceTitle, Laplace, constantName, multiplier = 1.0
+    }) {
+        // Internal variables
+        let constant = 1.0
+        const STEP = 0.05
+        const range = document.getElementById(`${id}/Range`)
+        const label = document.getElementById(`${id}/Label`)
+
+        drawFun(constant)
+        drawLaplace(constant)
+        drawLabel(constant)
+        label.value = 0
+
+        range.addEventListener("input", e => {
+            constant = (1 + e.target.value * .1) * multiplier
+            drawFun(constant)
+            drawLaplace(constant)
+            drawLabel(constant)
+        })
+
+        function drawLabel(constant) {
+            label.innerHTML = `${constantName} = ${constant.toFixed(1)}`;
+            label.value = constant;
+        }
+
+        function drawFun(constant) {
+            // Generate values
+            const xValues = [];
+            const yValues = [];
+
+            for (let t = 0; t <= 10; t += STEP) {
+                xValues.push(t);
+                yValues.push(Fun(t,constant));
+            }
+
+            // Display using Plotly
+            const data = [{x:xValues, y:yValues, mode:"lines"}];
+            const layout = {title: `y = ${FunTitle(constant.toFixed(1))}`};
+
+            Plotly.newPlot(`${id}/Fun`, data, layout);
+        }
+
+        function drawLaplace(constant) {
+            // Generate values
+            const xValues = [];
+            const yValues = [];
+
+            for (let s = 0; s <= 10; s += STEP) {
+                xValues.push(s);
+                yValues.push(Laplace(s,constant));
+            }
+
+            // Display using Plotly
+            const data = [{x:xValues, y:yValues, mode:"lines"}];
+            const layout = { title: `L = ${LaplaceTitle(constant.toFixed(1))}` };
+            Plotly.newPlot(`${id}/Laplace`, data, layout);
+        }
+    }
+
+    function factorial(num) {
+        var rval=1;
+        for (var i = 2; i <= num; i++)
+            rval = rval * i;
+        return rval;
+    }
+
+    for (const figure of figures) makeFigure(figure)
+
+</script>
+</html>
