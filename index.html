@@ -4,14 +4,18 @@
         <meta charset="utf-8"/>
         <script src="https://cdn.plot.ly/plotly-2.26.0.min.js" charset="utf-8"></script>
         <style>
-            body { 
+            html {
+                background: #F5F5F5;
+                font-family: 'Roboto', sans-serif;
+            }
+            body {
                 flex-direction: column;
                 align-items: center;
                 margin: auto;
                 width: 1000px;
             }
             h1, h2 {
-                margin-left: 105px;
+                margin-left: 45px;
                 margin-bottom: 0;
             }
             h1 {
@@ -21,7 +25,14 @@
                 display: flex; margin-bottom: 40px;
             }
             .function > figure { display: flex; flex-direction: column; align-items: center; }
+            .function > figure > div {
+                box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+            }
+            .function > figure > label { margin-top: 5px; }
         </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     </head>
 <body>
     <h1> Laplace transforms</h1>
