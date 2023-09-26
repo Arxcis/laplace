@@ -4,8 +4,22 @@
         <meta charset="utf-8"/>
         <script src="https://cdn.plot.ly/plotly-2.26.0.min.js" charset="utf-8"></script>
         <style>
-            body { margin: 50px; }
-            .function { display: flex; margin: 90px 0; }
+            body { 
+                flex-direction: column;
+                align-items: center;
+                margin: auto;
+                width: 1000px;
+            }
+            h1, h2 {
+                margin-left: 105px;
+                margin-bottom: 0;
+            }
+            h1 {
+                margin-bottom: 80px;
+            }
+            .function { 
+                display: flex; margin-bottom: 60px;
+            }
             .function > figure { display: flex; flex-direction: column; align-items: center; }
         </style>
     </head>
@@ -13,8 +27,8 @@
     <h1> Laplace transforms</h1>
     
 
+    <h2>k</h2>
     <section id="1" class="function">
-        <h2>k</h2>
         <figure>
             <div id="1/Fun" style="width: 500px;height:400px;"></div>
             <label id="1/Label"></label>
@@ -26,8 +40,8 @@
     </section>
 
 
+    <h2>kt</h2>
     <section id="t" class="function">
-        <h2>kt</h2>
         <figure>
             <div id="t/Fun" style="width: 500px;height:400px;"></div>
             <label id="t/Label"></label>
@@ -38,8 +52,8 @@
         </figure>
     </section>
 
+    <h2>tⁿ</h2>
     <section id="t^n" class="function">
-        <h2>tⁿ</h2>
         <figure>
             <div id="t^n/Fun" style="width: 500px;height:400px;"></div>
             <label id="t^n/Label"></label>
@@ -50,8 +64,8 @@
         </figure>
     </section>
 
+    <h2>e^(at)</h2>
     <section id="e^at" class="function">
-        <h2>e^(at)</h2>
         <figure>
             <div id="e^at/Fun" style="width: 500px;height:400px;"></div>
             <label id="e^at/Label"></label>
@@ -62,8 +76,8 @@
         </figure>
     </section>
 
+    <h2>sin(bt)</h2>
     <section id="sint" class="function">
-        <h2>sin(bt)</h2>
         <figure>
             <div id="sint/Fun" style="width: 500px;height:400px;"></div>
             <label id="sint/Label"></label>
@@ -74,8 +88,8 @@
         </figure>
     </section>
 
+    <h2>cos(bt)</h2>
     <section id="cost" class="function">
-        <h2>cos(bt)</h2>
         <figure>
             <div id="cost/Fun" style="width: 500px;height:400px;"></div>
             <label id="cost/Label"></label>
@@ -86,8 +100,8 @@
         </figure>
     </section>
 
+    <h2>te^(at)</h2>
     <section id="te^at" class="function">
-        <h2>te^(at)</h2>
         <figure>
             <div id="te^at/Fun" style="width: 500px;height:400px;"></div>
             <label id="te^at/Label"></label>
