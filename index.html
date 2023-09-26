@@ -75,18 +75,6 @@
         </figure>
     </section>
 
-    <h2>e^(at)</h2>
-    <section id="e^at" class="function">
-        <figure>
-            <div id="e^at/Fun" style="width: 500px;height:400px;"></div>
-            <label id="e^at/Label"></label>
-            <input id="e^at/Range" type="range" min=0 max=90 value=0 >
-        </figure>
-        <figure>
-            <div id="e^at/Laplace" style="width: 500px;height:400px;"></div>
-        </figure>
-    </section>
-
     <h2>sin(bt)</h2>
     <section id="sint" class="function">
         <figure>
@@ -108,6 +96,18 @@
         </figure>
         <figure>
             <div id="cost/Laplace" style="width: 500px;height:400px;"></div>
+        </figure>
+    </section>
+
+    <h2>e^(at)</h2>
+    <section id="e^at" class="function">
+        <figure>
+            <div id="e^at/Fun" style="width: 500px;height:400px;"></div>
+            <label id="e^at/Label"></label>
+            <input id="e^at/Range" type="range" min=0 max=90 value=0 >
+        </figure>
+        <figure>
+            <div id="e^at/Laplace" style="width: 500px;height:400px;"></div>
         </figure>
     </section>
 
@@ -147,13 +147,6 @@
             LaplaceTitle: (n) => `${n}! / s^(${n}+1)`,
             Laplace: (s,n) => factorial(n) / Math.pow(s,n+1),
     },{
-            id: "e^at",
-            constantName: "a",
-            FunTitle: (a) => `e^${a}t`,
-            Fun: (t,a) => Math.pow(Math.E,a*t),
-            LaplaceTitle: (a) => `1 / s - ${a}`,
-            Laplace: (s,a) => 1 / (s - a),
-    },{
             id: "sint",
             constantName: "b",
             FunTitle: (b) => `sin(${b}t)`,
@@ -167,6 +160,13 @@
             Fun: (t,b) => Math.cos(b*t),
             LaplaceTitle: (b) => `s / (s² + ${b}²)`,
             Laplace: (s,b) => s / (s*s + b*b),
+    },{
+            id: "e^at",
+            constantName: "a",
+            FunTitle: (a) => `e^${a}t`,
+            Fun: (t,a) => Math.pow(Math.E,a*t),
+            LaplaceTitle: (a) => `1 / s - ${a}`,
+            Laplace: (s,a) => 1 / (s - a),
     },{
             id: "te^at",
             constantName: "a",
