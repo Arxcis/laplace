@@ -141,11 +141,13 @@
     },{
             id: "t^n",
             constantName: "n",
-            multiplier: .3,
             FunTitle: (n) => `t^${n}`,
             Fun: (t,n) => Math.pow(t,n),
             LaplaceTitle: (n) => `${n}! / s^(${n}+1)`,
             Laplace: (s,n) => factorial(n) / Math.pow(s,n+1),
+            options: {
+                multiplier: .3,
+            }
     },{
             id: "sint",
             constantName: "b",
@@ -167,6 +169,9 @@
             Fun: (t,a) => Math.pow(Math.E,a*t),
             LaplaceTitle: (a) => `1 / s - ${a}`,
             Laplace: (s,a) => 1 / (s - a),
+            options: {
+                S: (i, a) =>  a + i
+            }
     },{
             id: "te^at",
             constantName: "a",
@@ -174,11 +179,21 @@
             Fun: (t,a) => t*Math.pow(Math.E, a*t),
             LaplaceTitle: (a) => `1 / (s-${a})²`,
             Laplace: (s,a) => 1 / Math.pow((s - a),2),
+            options: {
+                S: (i, a) =>  a + i
+            }
     }]
 
     function makeFigure({
-        id, FunTitle, Fun, LaplaceTitle, Laplace, constantName, multiplier = 1.0
+        id, FunTitle, Fun, LaplaceTitle, Laplace, constantName, options
     }) {
+        const defaultOptions =  {  
+            multiplier: 1.0, 
+            S: (i, _k) => i, 
+            T: (i, _k) => i
+        } 
+        const { multiplier, S, T } = { ...defaultOptions, ...options }
+
         // Internal variables
         let constant = 1.0
         const STEP = 0.05
@@ -191,7 +206,7 @@
         label.value = 0
 
         range.addEventListener("input", e => {
-            constant = (1 + e.target.value * .1) * multiplier
+            constant = (.1 + e.target.value * .1) * multiplier
             drawFun(constant)
             drawLaplace(constant)
             drawLabel(constant)
@@ -207,9 +222,10 @@
             const xValues = [];
             const yValues = [];
 
-            for (let t = 0; t <= 10; t += STEP) {
+            for (let i = 0; i <= 10; i += STEP) {
+                const t = T(i, constant)
                 xValues.push(t);
-                yValues.push(Fun(t,constant));
+                yValues.push(Fun(t, constant));
             }
 
             // Display using Plotly
@@ -224,9 +240,10 @@
             const xValues = [];
             const yValues = [];
 
-            for (let s = 0; s <= 10; s += STEP) {
+            for (let i = 0; i <= 10; i += STEP) {
+                const s = S(i, constant);
                 xValues.push(s);
-                yValues.push(Laplace(s,constant));
+                yValues.push(Laplace(s, constant));
             }
 
             // Display using Plotly
